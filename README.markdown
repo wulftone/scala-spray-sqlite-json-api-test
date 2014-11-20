@@ -29,7 +29,7 @@ Follow these steps to get started:
 
   For auto-reloading:
 
-        > ~re-start
+      > ~re-start
 
 6. Browse to [http://localhost:8080](http://localhost:8080/)
 
