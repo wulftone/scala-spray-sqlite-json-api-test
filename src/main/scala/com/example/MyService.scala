@@ -28,18 +28,17 @@ trait MyService extends HttpService {
   val cars: TableQuery[Cars] = TableQuery[Cars]
 
   // val db = Database.forURL("jdbc:sqlite:./test.sqlite3", driver = "org.sqlite.jdbc.Driver")
-  val db = Database.forURL("./test.sqlite3", driver = "scala.slick.driver.SQLiteDriver")
+  val db = Database.forURL("jdbc:sqlite:./test.sqlite3", driver = "scala.slick.driver.SQLiteDriver")
 
   val myRoute = path("") {
     get {
       respondWithMediaType(`application/json`) {
         complete {
-          // val jsonAst = List(1, 2, 3).toJson
-          // val json = jsonAst.prettyPrint
-          // json
 
           val result = db.withSession {
+
             implicit session =>
+
               cars.ddl.create
               val myCar = Car(-1, "Ford", "Taurus", 2015)
               cars.insert(myCar)
