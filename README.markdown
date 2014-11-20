@@ -27,7 +27,7 @@ Follow these steps to get started:
 
         > re-start
 
-  For auto-reloading
+  For auto-reloading:
 
         > ~re-start
 
