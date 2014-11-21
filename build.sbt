@@ -18,7 +18,8 @@ libraryDependencies ++= {
     "io.spray"            %%  "spray-routing" % sprayV,
     "io.spray"            %%  "spray-testkit" % sprayV   % "test",
     "org.slf4j"           %   "slf4j-nop"     % "1.6.4",
-    "org.specs2"          %%  "specs2-core"   % "2.3.11" % "test"
+    "org.specs2"          %%  "specs2-core"   % "2.3.11" % "test",
+    "org.xerial"          %   "sqlite-jdbc"   % "3.7.2"            // << SQLite JDBC Driver
   )
 }
 
