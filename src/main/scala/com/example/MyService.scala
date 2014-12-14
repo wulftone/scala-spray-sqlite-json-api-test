@@ -23,29 +23,32 @@ class MyServiceActor extends Actor with MyService {
   def receive = runRoute(myRoute)
 }
 
-
 // this trait defines our service behavior independently from the service actor
 trait MyService extends HttpService {
   val cars: TableQuery[Cars] = TableQuery[Cars]
+  // cars.ddl.create
 
   val db = Database.forURL("jdbc:sqlite:./test.sqlite3", driver = "org.sqlite.JDBC")
 
   val myRoute = path("") {
     get {
-      respondWithMediaType(`application/json`) {
-        complete {
-          // val jsonAst = List(1, 2, 3).toJson
-          // val json = jsonAst.prettyPrint
-          // json
-
-          val result = db.withSession {
-            implicit session =>
-              cars.ddl.create
-              val myCar = Car(-1, "Ford", "Taurus", 2015)
-              cars.insert(myCar)
-          }
-          "Hi"
+      complete {
+        val result = db.withSession {
+          implicit session =>
+            cars.map(c => (c.id, c.make, c.modelName, c.year)).list.toJson.prettyPrint
         }
+
+        result.toJson.prettyPrint
+      }
+    } ~
+    post {
+      complete {
+        val result = db.withSession {
+          implicit session =>
+            cars.insert(Car(0, "Ford", "Taurus", 2015))
+        }
+
+        result.toJson.prettyPrint
       }
     }
   }
